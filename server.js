@@ -8,8 +8,10 @@ import pinoPretty from 'pino-pretty';
 const app = express();
 const logger = pino(pinoPretty());
 
+// безопасность в браузере (несовпадение origin):
 app.use(cors());
 
+// парсинг body на сервере (из строки получаем json):
 app.use(
   bodyParser.json({
     type(request) {
@@ -18,6 +20,7 @@ app.use(
   })
 );
 
+// установка заголовков ответа:
 app.use((request, response, next) => {
   response.setHeader('Content-Type', 'application/json');
   next();
@@ -25,7 +28,7 @@ app.use((request, response, next) => {
 
 let tickets = [
   {
-    id: crypto.randomUUID(),
+    id: crypto.randomUUID(), // уникальный айдишник
     name: 'Поменять краску в принтере, ком. 404',
     description: 'Принтер HP LJ-1210, картриджи на складе',
     status: false,
