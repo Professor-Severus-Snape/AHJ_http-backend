@@ -53,6 +53,10 @@ let tickets = [
 app.use(async (request, response) => {
   const { method, id } = request.query;
   switch (method) {
+    case 'checkServer':
+      logger.info('Server found');
+      response.status(204).end();
+      break;
     case 'allTickets':
       logger.info('All tickets has been called');
       response.send(JSON.stringify(tickets)).end();
